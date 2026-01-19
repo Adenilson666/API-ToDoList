@@ -1,36 +1,63 @@
 const tarefasModel = require('../Model/tarefaModel');
+const AppError = require('../errors/AppError');
 
 const getAll = async(req, res) => {
-    const tarefas = await tarefasModel.getAll();
-    return res.status(200).json(tarefas);
+    try {
+        const tarefas = await tarefasModel.getAll();
+        return res.status(200).json(tarefas);
+    } catch (error) {
+        next(error);
+    }
 }
 
 const getById = async(req, res) => {
 
-    const { id } = req.params;
+    try {
+        const { id } = req.params;
 
-    const tarefa = await tarefasModel.getById(id);
+        const tarefa = await tarefasModel.getById(id);
 
-    if (!tarefa) {
-        return res.status(404).json({ message: 'Tarefa não encontrada '});
+        if (!tarefa) {
+            return res.status(404).json({ message: 'Tarefa não encontrada '});
+        }
+
+            return res.status(200).json(tarefa);
+    } catch (error) {
+        next(error);
     }
-
-    return res.status(200).json(tarefa);
+    
 }
 
 const createTask = async(req, res) => {
-    const created = await tarefasModel.createTask(req.body);
-    return res.status(201).json(created);
+
+    try {
+        const created = await tarefasModel.createTask(req.body);
+        return res.status(201).json(created);
+    } catch (error) {
+        next(error);
+    }   
 }
 
 const updateTask = async(req, res) => {
-    await tarefasModel.updateTask(req.params.id, req.body);
-    return res.status(204).json();
+
+    try {
+        await tarefasModel.updateTask(req.params.id, req.body);
+        return res.status(204).json();
+    } catch (error) {
+        next(error);
+    }
+    
 }
 
 const deleteTask = async(req, res) => {
-    await tarefasModel.deleteTask(req.params.id);
-    return res.status(204).end()
+
+    try {
+        await tarefasModel.deleteTask(req.params.id);
+        return res.status(204).end()
+    } catch (error) {
+        next(error);
+    }
+    
 }
 
 module.exports = {
