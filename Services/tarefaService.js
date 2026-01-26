@@ -18,6 +18,7 @@ const getById = async (id) => {
 
 const createTask = async (data) => {
     const tarefa = data.tarefa.trim();
+    console.log(tarefa);
     return tarefasModel.createTask({ tarefa });
 };
 

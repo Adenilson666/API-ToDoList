@@ -1,4 +1,3 @@
-const { type } = require('os');
 const AppError = require('../errors/AppError');
 
 const updateMiddleware = (req, res, next) => {
@@ -13,14 +12,16 @@ const updateMiddleware = (req, res, next) => {
         throw new AppError('Pelo menos um dos campos "tarefa" ou "status" deve ser fornecido para atualização.', 400);
     }
 
-    if (tarefa) {
-        if (tarefa.trim() === '') {
-            throw new AppError('O campo "tarefa" não pode ser vazio.', 400);
-        }
+    if (tarefa.trim() === '') {
+        throw new AppError('O campo "tarefa" não pode ser vazio.', 400);
+    }
 
-        if (tarefa && tarefa.length < 3) {
+    if (/^\d+$/.test(tarefa.trim())) {
+        throw new AppError('O campo "tarefa" não pode ser uma string de números.', 400);
+    }
+
+    if (tarefa && tarefa.length < 3) {
         throw new AppError('O campo "tarefa" deve ter pelo menos 3 caracteres.', 400);
-        }
     }
 
     const validStatuses = ['PENDENTE', 'FEITO'];

@@ -6,19 +6,22 @@ const tarefaMiddleware = (req, res, next) => {
         throw new AppError('Corpo da requisição está vazio.', 400);
     }
 
-    const { tarefa } = req.body;
-    tarefa = tarefa.trim();
-
-    if (typeof tarefa !== 'string') {
-        throw new AppError('O campo "tarefa" deve ser uma string.', 400);
-    }
+    let { tarefa } = req.body;
 
     if (tarefa === undefined) {
         throw new AppError('O campo "tarefa" é obrigatório.', 400);
     }
 
+    if (typeof tarefa !== 'string') {
+        throw new AppError('O campo "tarefa" deve ser uma string.', 400);
+    }
+
     if (tarefa.trim() === '') {
         throw new AppError('O campo "tarefa" não pode ser vazio.', 400);
+    }
+
+    if (/^\d+$/.test(tarefa.trim())) {
+        throw new AppError('O campo "tarefa" não pode ser uma string de números.', 400);
     }
 
     if (tarefa.length < 3) {

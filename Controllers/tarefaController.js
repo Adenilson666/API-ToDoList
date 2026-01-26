@@ -30,7 +30,9 @@ const createTask = async(req, res, next) => {
         return res.status(201).json(created);
     } catch (error) {
         next(error);
+        console.log(req.body); 
     }   
+     
 }
 
 const updateTask = async(req, res, next) => {
