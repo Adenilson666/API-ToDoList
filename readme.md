@@ -167,8 +167,7 @@ http://localhost:3000
 | POST   | `/tarefas`     | Criar nova tarefa              |
 | GET    | `/tarefas`     | Listar todas as tarefas        |
 | GET    | `/tarefas/:id` | Obter tarefa por ID            |
-| PATCH  | `/tarefas/:id` | Atualizar tarefa               |
-| PATCH  | `/tarefas/:id/status` | Alterar status da tarefa |
+| PUT    | `/tarefas/:id` | Atualizar tarefa               |
 | DELETE | `/tarefas/:id` | Deletar tarefa                 |
 
 ---
